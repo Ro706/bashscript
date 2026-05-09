@@ -190,4 +190,51 @@ read -s -p "Password: " pass
 echo
 echo "You entered username: $user and password: $pass"
 ```
+___
+## Command Line Arguments
+
+- When you run a Bash script, you can pass extra values (arguments) after the script name.
+- These values are accessible inside the script using special variables like `$1`, `$2`, `$@`, etc.
+
+### Special Variables in Bash
+| Variable | Meaning |
+| --- | --- |
+| ``$0`` | Script name |
+| ``$1 ``- ``$9`` | Arguments (first to ninth) |
+| ``$#`` | Number of arguments passed |
+| ``$@`` | All arguments as a list |
+| ``$$`` | Process ID of the script |
+| ``$?`` | Exit status of the last command |
+
+### Example with Special Variables
+#### Code
+```bash
+#!/bin/bash
+
+echo "Script name: $0"
+echo "First arg: $1"
+echo "Second arg: $2"
+echo "Total args: $#"
+echo "All args: $@"
+echo "Process ID: $$"
+
+# Run a simple command and check status
+ls > /dev/null
+echo "Last command status: $?"
+
+```
+#### Run
+`./script.sh Rohit 21`
+
+#### Output
+```shell
+Script name: ./script.sh
+First arg: Rohit
+Second arg: 21
+Total args: 2
+All args: Rohit 21
+Process ID: 12345
+Last command status: 0
+```
+
 
