@@ -237,4 +237,355 @@ Process ID: 12345
 Last command status: 0
 ```
 
+___
 
+# Arrays
+Arrays store multiple values in a single variable.
+
+```bash
+arr=("apple" "banana" "mango")
+echo ${arr[0]}
+```
+- Access elements using indices, starting at 0.
+
+### All Elements
+```bash
+echo ${arr[@]}
+```
+- Prints all elements in the array.
+
+### Length
+```bash
+echo ${#arr[@]}
+```
+- Returns the number of elements in the array.
+
+### Looping Through Arrays
+```bash
+for item in "${arr[@]}"
+do
+    echo $item
+done
+```
+- Iterates over each element in the array.
+
+---
+
+# String Operations
+Strings can be manipulated in various ways.
+
+### Length
+```bash
+str="hello"
+echo ${#str}
+```
+- Returns the length of the string.
+
+### Substring
+```bash
+echo ${str:1:3}
+```
+- Extracts a substring starting at index 1 with length 3 (`ell`).
+
+### Concatenation
+```bash
+a="Hello"
+b="World"
+echo "$a $b"
+```
+- Combines two strings with a space.
+
+---
+
+# Conditional Statements
+Conditional statements allow decision-making in scripts.
+
+### If Statement
+```bash
+num=5
+if [ $num -gt 3 ]; then
+    echo "Number is greater than 3"
+fi
+```
+- Executes the block only if the condition is true.
+
+### If-Else Statement
+```bash
+if [ -f "test.txt" ]; then
+    echo "File exists"
+else
+    echo "File not found"
+fi
+```
+- Provides an alternative block if the condition is false.
+
+### If-Elif-Else Chain
+```bash
+hour=$(date +%H)
+if [ $hour -lt 12 ]; then
+    echo "Good morning"
+elif [ $hour -lt 18 ]; then
+    echo "Good afternoon"
+else
+    echo "Good evening"
+fi
+```
+- Useful for multiple mutually exclusive conditions.
+
+### Case Statement
+```bash
+read -p "Enter option: " opt
+case $opt in
+    1) echo "One";;
+    2) echo "Two";;
+    *) echo "Invalid";;
+esac
+```
+- Cleaner way to handle multiple options.
+
+---
+
+# Functions
+Functions in Bash allow you to group commands together and reuse them. They can accept arguments and return values.
+
+```bash
+#!/bin/bash
+
+greet() {
+    echo "Hello $1"
+}
+
+greet Rohit
+```
+- Defines a function `greet` that takes one argument (`$1`) and prints a greeting.
+- Calling `greet Rohit` passes `"Rohit"` as the argument.
+
+### Return Values
+Functions can return values by printing them, which can then be captured.
+
+```bash
+add() {
+    echo $(($1+$2))
+}
+
+result=$(add 5 10)
+echo $result
+```
+- The `add` function takes two arguments and prints their sum.
+- The result is captured into a variable using command substitution `$(...)`.
+
+---
+---
+# File Handling
+Bash provides ways to check and manipulate files.
+
+### Check if File Exists
+```bash
+if [ -f test.txt ]
+then
+    echo "Exists"
+fi
+```
+
+### Check if Directory Exists
+```bash
+if [ -d folder ]
+then
+    echo "Directory exists"
+fi
+```
+
+### Read File Line by Line
+```bash
+while read line
+do
+    echo $line
+done < file.txt
+```
+- Reads each line from a file and processes it.
+
+---
+
+# Redirects
+Redirects control input and output streams.
+
+### Output Redirect
+```bash
+echo "Hello" > file.txt
+```
+- Writes output to a file (overwrites existing content).
+
+### Append
+```bash
+echo "New line" >> file.txt
+```
+- Appends output to a file.
+
+### Input Redirect
+```bash
+wc -l < file.txt
+```
+- Passes file content as input to a command.
+
+---
+
+# Pipes
+Pipes connect the output of one command to the input of another.
+
+```bash
+cat file.txt | grep hello
+```
+- Passes the contents of `file.txt` to `grep` for searching.
+
+---
+
+# grep
+`grep` searches for text patterns in files.
+
+### Search Text
+```bash
+grep "hello" file.txt
+```
+
+### Ignore Case
+```bash
+grep -i "hello" file.txt
+```
+
+---
+
+# sed
+`sed` is a stream editor for modifying text.
+
+### Replace Text
+```bash
+sed 's/apple/mango/' file.txt
+```
+- Replaces the first occurrence of "apple" with "mango" in each line.
+
+---
+
+# awk
+`awk` is used for text processing and extracting fields.
+
+```bash
+awk '{print $1}' file.txt
+```
+- Prints the first column from each line.
+
+### Useful For
+- Parsing logs  
+- Processing CSV files  
+
+---
+
+# Exit Status
+Every command returns an exit status (0 = success, non-zero = error).
+
+```bash
+mkdir test
+echo $?
+```
+
+---
+
+# Debugging
+Debugging helps trace script execution.
+
+### Run with Debug Mode
+```bash
+bash -x script.sh
+```
+
+### Inside Script
+```bash
+set -x
+```
+
+---
+
+# Important Linux Commands
+| Command | Work |
+|---------|------|
+| ls | list files |
+| pwd | current directory |
+| cd | change directory |
+| mkdir | create folder |
+| rm | remove |
+| cp | copy |
+| mv | move |
+| touch | create file |
+| cat | view file |
+| chmod | change permissions |
+
+---
+
+# File Permissions
+```bash
+chmod +x script.sh
+```
+- Makes a script executable.
+
+### Permission Format
+`rwxr-xr-x`
+
+| Symbol | Meaning |
+|--------|---------|
+| r | read |
+| w | write |
+| x | execute |
+
+---
+
+# Cron Jobs (Automation)
+Cron schedules tasks to run automatically.
+
+### Open Cron
+```bash
+crontab -e
+```
+
+### Example
+```bash
+* * * * * /home/user/script.sh
+```
+- Runs every minute.
+
+---
+
+# Error Handling
+```bash
+set -e
+```
+- Stops the script immediately if any command fails.
+
+---
+
+# Useful Special Commands
+- Current user: `whoami`  
+- Date: `date`  
+- Disk usage: `df -h`  
+- RAM usage: `free -m`  
+- Processes: `ps aux`  
+- Kill process: `kill PID`  
+
+---
+
+# Advanced Bash Topics
+### Here Documents
+```bash
+cat << EOF
+Hello
+World
+EOF
+```
+
+### Trap Signals
+```bash
+trap "echo Exiting" EXIT
+```
+
+### Background Processes
+```bash
+sleep 10 &
+```
