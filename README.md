@@ -589,3 +589,11 @@ trap "echo Exiting" EXIT
 ```bash
 sleep 10 &
 ```
+
+___
+<img width="658" height="322" alt="image" src="https://github.com/user-attachments/assets/d9a37c86-87de-4083-a478-f8ca181fdeea" />
+<img width="431" height="273" alt="image" src="https://github.com/user-attachments/assets/6104fa8e-c232-45cd-85ab-aa01c846eb69" />
+<img width="882" height="322" alt="image" src="https://github.com/user-attachments/assets/2177c183-b39a-4afe-ac2c-0e6845c84731" />
+<img width="892" height="467" alt="image" src="https://github.com/user-attachments/assets/59d4481d-f0ec-4820-871e-1d2fbf8cdf0d" />
+
+
