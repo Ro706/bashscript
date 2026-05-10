@@ -1,7 +1,3 @@
-Here’s a corrected version of your notes with clear explanations for each point:
-
----
-
 # Analysis Log
 
 - **Checking system logs in a specific category**  
