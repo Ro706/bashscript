@@ -598,4 +598,97 @@ ___
 <img width="903" height="416" alt="image" src="https://github.com/user-attachments/assets/7fe5199f-1bbb-4ed7-9975-97a8b3f70e8f" />
 <img width="893" height="262" alt="image" src="https://github.com/user-attachments/assets/546addd3-4541-4c16-bffd-c77110157a4a" />
 
+___
 
+## Analysis Log
+
+| Tag | Meaning / Role in Logs |
+| --- | --- |
+| **Step_LSC** | Refers to the *Log Step Counter* or a step‑tracking component. It records events like ``onStandStepChanged`` or sensor flushes, indicating step detection and updates. |
+| **Step_StandReportReceiver** | A receiver module that listens for broadcast events (e.g., screen on/off, activity changes) and reports standing/step data. |
+| **Step_SPUtils** | Likely a *SharedPreferences Utility* class used to store and retrieve step or health data locally in the app. |
+| **Step_ExtSDM** | External *Step Data Manager* — manages extended step data, possibly aggregating or syncing with other services. |
+| **HiH_** | Prefix for *HiHealth* framework components. It indicates modules belonging to Huawei’s HiHealth SDK (used in fitness/health apps). |
+| **HiH_HiAppUtil** | Utility functions for the HiHealth app, handling common operations like formatting, conversions, or app‑level helpers. |
+| **HiH_HiSyncControl** | Synchronization controller for HiHealth — manages syncing health data between local storage and cloud/remote services. |
+| **HiH_HiHealthBinder** | A binder interface for inter‑process communication (IPC) within the HiHealth system, allowing different modules to interact. |
+| **HiH_DataStatManager** | Data Statistics Manager — collects, aggregates, and reports statistics (e.g., steps, calories, activity summaries). |
+| **HiH_HiBroadcastUtil** | Utility for handling broadcast events (e.g., system intents like screen on/off, connectivity changes) within HiHealth. |
+
+
+
+# HealthApp_2k.log Analysis
+
+The `HealthApp_2k.log` file is a structured Android health application log.
+It records step counting, calorie estimation, altitude tracking, and broadcast events.
+Each entry captures a timestamp, component name, process ID, and the specific action or data update.
+
+---
+
+## 📋 Log Structure
+Each line follows the format:
+
+```
+<timestamp>|<component>|<pid>|<message/content>
+```
+
+- **Timestamp** → e.g., `20171223-22:15:29:606` (date and time with milliseconds).
+- **Component** → module generating the log (`Step_LSC`, `Step_SPUtils`, etc.).
+- **PID** → process ID (`30002312` in most entries).
+- **Message/Content** → action performed or data recorded (e.g., `onStandStepChanged 3579`).
+
+---
+
+## 🔎 Key Components
+
+- **Step_LSC (Log Step Counter)**
+  Tracks step changes (`onStandStepChanged`) and handles broadcast actions like screen on/off or time ticks.
+
+- **Step_StandReportReceiver**
+  Receives system broadcasts (`SCREEN_ON`, `SCREEN_OFF`, `TIME_TICK`) and generates reports summarizing steps, calories, and altitude.
+
+- **Step_SPUtils (SharedPreferences Utility)**
+  Stores and retrieves step data in persistent storage. Example:
+  ```
+  getTodayTotalDetailSteps = 1514038440000##6993##548365##8661##12266##27164404
+  ```
+
+- **Step_ExtSDM (External Step Data Manager)**
+  Calculates derived metrics like calories (`totalCalories=126775`) and altitude (`totalAltitude=240`).
+
+- **Step_StandStepCounter**
+  Flushes sensor data when triggered by broadcasts.
+
+- **Step_ScreenUtil**
+  Checks screen status (`isScreenOn true`) to adjust reporting logic.
+
+---
+
+## 📊 Example Flow in the Log
+
+1. **Step detected** → `Step_LSC` logs `onStandStepChanged`.
+2. **Data update** → `Step_SPUtils` updates today’s step totals.
+3. **Derived metrics** → `Step_ExtSDM` calculates calories and altitude.
+4. **Report generated** → `Step_StandReportReceiver` outputs a summary line like:
+   ```
+   REPORT : 7007 5002 150089 240
+   ```
+   (steps, calories, distance, altitude).
+5. **Broadcast events** → system actions (`SCREEN_ON`, `SCREEN_OFF`, `TIME_TICK`) trigger flushes and recalculations.
+
+---
+
+## ⚠️ Why It’s Useful
+
+- **Debugging** → Developers can trace how step data flows through the app.
+- **Analysis** → Researchers can study user activity patterns, energy expenditure, and app behavior.
+- **Performance Monitoring** → Identifies delays or errors in sensor handling and reporting.
+
+---
+
+✅ **In summary:**
+The `HealthApp_2k.log` is a detailed activity log from a health tracking app.
+It records step counts, calorie/altitude calculations, and system broadcast events, with each component (`Step_LSC`, `Step_SPUtils`, `Step_ExtSDM`, etc.) handling a specific part of the data pipeline.
+```
+
+---
