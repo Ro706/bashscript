@@ -689,6 +689,5 @@ Each line follows the format:
 ✅ **In summary:**
 The `HealthApp_2k.log` is a detailed activity log from a health tracking app.
 It records step counts, calorie/altitude calculations, and system broadcast events, with each component (`Step_LSC`, `Step_SPUtils`, `Step_ExtSDM`, etc.) handling a specific part of the data pipeline.
-```
 
 ---
